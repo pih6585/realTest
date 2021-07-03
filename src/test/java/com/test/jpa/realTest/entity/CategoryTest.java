@@ -54,21 +54,21 @@ class CategoryTest {
     public void 카테고리_아이템_등록() throws Exception {
         Category category1 = new Category();
         category1.createChild(1L,"IT서적");
+        Book book1 = Book.bookCreate("김영한",null,"JPA",10000,100);
+        CategoryItem categoryItem = CategoryItem.createCategoryItem(category1,book1);
 
         Category category2 = new Category();
-        category2.createChild(1L,"기타소설");
+        category2.createChild(2L,"기타소설");
+        Book book2 = Book.bookCreate("김영한",null,"SPRING",10000,150);
 
         assertThat(category1.getName()).isEqualTo("IT서적");
         assertThat(category2.getName()).isEqualTo("기타소설");
 
-        Book book1 = Book.bookCreate("김영한",null,"JPA",10000,100);
-        book1.createCategory(category1);
+        CategoryItem categoryItem2 = CategoryItem.createCategoryItem(category2,book2);
 
-        Book book2 = Book.bookCreate("김영한",null,"SPRING",10000,150);
-        book2.createCategory(category1);
 
-        List<Item> items = category1.getItems();
-        assertThat(items).extracting("name").containsExactly("JPA","SPRING");
+        assertThat(categoryItem2.getItem().getName()).isEqualTo("SPRING");
+
 
     }
 }

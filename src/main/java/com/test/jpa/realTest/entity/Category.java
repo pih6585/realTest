@@ -1,6 +1,8 @@
 package com.test.jpa.realTest.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
 
     @Id @GeneratedValue
@@ -15,11 +18,8 @@ public class Category {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "category_item",
-     joinColumns = @JoinColumn(name = "category_id"),
-     inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private List<Item> items = new ArrayList<>();
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
@@ -27,9 +27,6 @@ public class Category {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
-
-    protected Category() {
-    }
 
     public Category createChild(Long id, String name){
         this.id = id;

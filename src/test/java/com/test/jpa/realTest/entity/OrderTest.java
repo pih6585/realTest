@@ -17,8 +17,6 @@ class OrderTest {
 
     @Test
     public void 주문_등록()throws Exception{
-        Order order = new Order();
-        //member, orderItemList, Delivery;
         Member createMember = Member.createMember("member1","서울","천호","111-11");
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
         List<OrderItem> orderItemList = new ArrayList<>();
@@ -28,18 +26,15 @@ class OrderTest {
         OrderItem orderItem2 = initOrderItem(2L,book2,2);
         orderItemList.add(orderItem1);
         orderItemList.add(orderItem2);
-        Order createOrder = order.createOrder(createMember, orderItemList, createDelivery);
+        Order createOrder = Order.createOrder(createMember, orderItemList, createDelivery);
 
-        assertThat(createOrder.getMember().getUsername()).isEqualTo("member");
+        assertThat(createOrder.getMember().getUsername()).isEqualTo("member1");
         assertThat(createOrder.getDelivery().getAddress().getCity()).isEqualTo("서울");
         assertThat(createOrder.getOrderItems()).extracting("orderPrice").containsExactly(10000,20000);
     }
 
     private Item createBook(Long id, String name, int price, int stockQuantity, String author, String isbn) {
-        Book book = null;
-                /*new Book();
-        Item item = book.itemCreate(1L, name, price, stockQuantity);
-        book.bookCreate(author,isbn,item.getId(),item.getName(),item.getPrice(),item.getStockQuantity());*/
+        Book book = Book.bookCreate(author,isbn,name,price,stockQuantity);
         return book;
     }
 

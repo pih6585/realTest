@@ -29,17 +29,8 @@ public abstract class Item {
     @Column(name = "DTYPE")
     private String typeAlias;
 
-
-    @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
-    private List<Category> categories = new ArrayList<>();
-
-    public Item createCategory(Category category) {
-        if(category != null){
-            categories.add(category);
-            category.getItems().add(this);
-        }
-        return this;
-    }
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
     public Item itemCreate(String name, int price, int stockQuantity){
         this.name = name;
