@@ -35,19 +35,13 @@ public class Member {
      */
 
     public static Member createMember(String name, String city, String street, String zipcode) {
-        Member member = new Member(name, city, street, zipcode);
+        Member member = new Member(null,name, city, street, zipcode);
         return member;
     }
 
     public static Member updateMember(Long id,String name, String city, String street, String zipcode) {
         Member member = new Member(id, name, city, street, zipcode);
         return member;
-    }
-
-    private Member(String name, String city, String street, String zipcode) {
-        this.username = name;
-        Address address = new Address(city, street, zipcode);
-        this.address = address;
     }
 
     private Member(Long id,String name, String city, String street, String zipcode) {
