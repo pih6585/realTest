@@ -1,6 +1,8 @@
 package com.test.jpa.realTest.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item {
 
     @Id
@@ -30,10 +33,6 @@ public abstract class Item {
     @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
     private List<Category> categories = new ArrayList<>();
 
-    public Item() {
-
-    }
-
     public Item createCategory(Category category) {
         if(category != null){
             categories.add(category);
@@ -42,7 +41,7 @@ public abstract class Item {
         return this;
     }
 
-    public Item itemCreate(String name, int price, int stockQuantity) {
+    public Item itemCreate(String name, int price, int stockQuantity){
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;

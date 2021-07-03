@@ -1,12 +1,15 @@
 package com.test.jpa.realTest.entity;
 
 import com.test.jpa.realTest.enumClass.DeliveryStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Delivery {
 
     @Id
@@ -14,7 +17,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY,mappedBy = "delivery")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "delivery")
     private Order order;
 
     @Embedded
@@ -23,17 +26,18 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    protected Delivery() {
-    }
 
-    public void createOrder(Order order){
+    public void createOrder(Order order) {
         this.order = order;
     }
 
-    public Delivery createDelivery(Long id, Address address, DeliveryStatus status) {
-        this.id = id;
+    public static Delivery createDelivery(Address address, DeliveryStatus status) {
+       Delivery delivery = new Delivery(address,status);
+        return delivery;
+    }
+
+    private Delivery(Address address, DeliveryStatus status){
         this.address = address;
         this.status = status;
-        return this;
     }
 }

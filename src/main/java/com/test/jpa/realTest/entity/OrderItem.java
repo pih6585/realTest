@@ -1,11 +1,14 @@
 package com.test.jpa.realTest.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id

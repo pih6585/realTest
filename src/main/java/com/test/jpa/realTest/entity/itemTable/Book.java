@@ -26,6 +26,6 @@ public class Book extends Item {
     private Book(String author, String isbn, String name, int price, int stockQuantity){
         this.author = author;
         this.isbn = isbn;
-        this.itemCreate( name, price, stockQuantity);
+        this.itemCreate(name, price, stockQuantity);
     }
 }

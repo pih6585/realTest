@@ -20,8 +20,7 @@ class OrderTest {
         Order order = new Order();
         //member, orderItemList, Delivery;
         Member createMember = Member.createMember("member1","서울","천호","111-11");
-        Delivery delivery = new Delivery();
-        Delivery createDelivery = delivery.createDelivery(1L, createMember.getAddress(), DeliveryStatus.READY);
+        Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
         List<OrderItem> orderItemList = new ArrayList<>();
         Item book1 = createBook(1L,"JPA",10000,100,"김영한","12345567");
         Item book2 = createBook(1L,"SPRING",10000,100,"김영한","12345567");

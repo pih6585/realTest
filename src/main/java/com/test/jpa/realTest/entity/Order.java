@@ -1,7 +1,9 @@
 package com.test.jpa.realTest.entity;
 
 import com.test.jpa.realTest.enumClass.OrderStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 public class Order {
 
@@ -32,10 +35,6 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-    protected Order() {
-
-    }
 
     public Order createOrder(Member member, List<OrderItem> orderItemList, Delivery delivery) {
         this.member = member;
