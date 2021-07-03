@@ -38,6 +38,16 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PostMapping("members/update")
+    public String update(@Valid MemberDto memberDto, BindingResult result) {
+        if(result.hasErrors()){
+            return "members/updateMemberForm";
+        }
+
+        memberService.memberUpdate(memberDto);
+        return "redirect:/";
+    }
+
     @GetMapping("/members")
     public String list(Model model){
         List<MemberDto> memberList = memberService.memberFindAll();
@@ -49,6 +59,6 @@ public class MemberController {
     public String upateForm(@PathVariable("id") Long id, Model model){
         MemberDto memberDto = memberService.memberFindOne(id);
         model.addAttribute("memberDto",memberDto);
-        return "members/createMemberForm";
+        return "members/updateMemberForm";
     }
 }

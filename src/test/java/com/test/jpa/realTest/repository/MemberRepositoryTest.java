@@ -25,25 +25,42 @@ class MemberRepositoryTest {
 
     @Autowired
     EntityManager em;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @BeforeEach
     void setUp() {
-        
+
     }
 
     @Transactional
     @Test
-    public void 멤버_저장(){
-        Member member = Member.createMember("member1","서울","천호","11-11");
+    public void 멤버_저장() {
+        Member member = Member.createMember("member1", "서울", "천호", "11-11");
         Member saveMember = memberRepository.save(member);
         assertThat(saveMember.getUsername()).isEqualTo("member1");
     }
 
+    @Transactional
+    @Test
+    public void 맴버_수정() {
+        Member member = Member.createMember("member1", "서울", "천호", "11-11");
+        Member saveMember = memberRepository.save(member);
+        assertThat(saveMember.getUsername()).isEqualTo("member1");
+
+        Optional<Member> optMember = memberRepository.findById(saveMember.getId());
+        Member findMember = Optional.ofNullable(optMember.get()).get();
+        findMember = Member.updateMember(saveMember.getId(), "testMember1", member.getAddress().getCity(),
+                                          member.getAddress().getStreet(), member.getAddress().getZipcode());
+        Member updateMember = memberRepository.save(findMember);
+
+        assertThat(updateMember.getUsername()).isEqualTo("testMember1");
+    }
+
     @Test
     @Transactional
-    public void 맴버_단일조회(){
-        Member member = Member.createMember("member1","서울","천호","11-11");
+    public void 맴버_단일조회() {
+        Member member = Member.createMember("member1", "서울", "천호", "11-11");
         Member saveMember = memberRepository.save(member);
 
         em.flush();
@@ -59,16 +76,15 @@ class MemberRepositoryTest {
 
     @Test
     @Transactional
-    public void 맴버_전체조회(){
-        Member member1 = Member.createMember("member1","서울","천호","11-11");
+    public void 맴버_전체조회() {
+        Member member1 = Member.createMember("member1", "서울", "천호", "11-11");
         memberRepository.save(member1);
 
-        Member member2 = Member.createMember("member2","서울","천호","11-11");
-        Member resultMember2 =  member2.createMember("member2","서울","천호","11-11");
-        memberRepository.save(resultMember2);
+        Member member2 = Member.createMember("member2", "서울", "천호", "11-11");
+        memberRepository.save(member2);
 
         List<Member> memberList = memberRepository.findAll();
 
-        assertThat(memberList).extracting("username").containsExactly("member1","member2");
+        assertThat(memberList).extracting("username").containsExactly("member1", "member2");
     }
 }

@@ -4,11 +4,6 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <div>
-        <input type="radio" name="dtype" id="dtype1" value="Book" th:checked="true">도서
-        <input type="radio" name="dtype" id="dtype2" value="Album">음악
-        <input type="radio" name="dtype" id="dtype3" value="Movie">영화
-    </div>
     <form th:action="@{/items/new}" th:object="${form}" method="post">
         <input type="hidden" th:field="*{typeAlias}">
         <div class="form-group">
@@ -41,18 +36,5 @@
     <br/>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
-<script>
-    window.onload = function() {
-        document.getElementsByName("dtype");
-        document.getElementById("dtype1").th
-        document.getElementById("dtype1").onclick = function() {
-            alert("A함수호출");
-        }
-
-        document.getElementById("dtype2").onclick = function() {
-            alert("B함수호출");
-        }
-    }
-</script>
 </body>
 </html>

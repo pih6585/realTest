@@ -66,7 +66,10 @@ class MemberServiceTest {
         assertThat(findMember2).isEqualTo(memberDto2);
 
         findMember1.setName("testMember");
-        memberService.memberCreate(findMember1);
+        Long updateId = memberService.memberUpdate(findMember1);
+        MemberDto updateDto = memberService.memberFindOne(updateId);
+
+        assertThat(updateDto.getName()).isEqualTo("testMember");
     }
 
     @Test

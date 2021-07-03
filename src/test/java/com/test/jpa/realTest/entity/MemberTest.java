@@ -23,4 +23,16 @@ class MemberTest {
 
     }
 
+    @Test
+    public void 맴버_등록V2() throws Exception {
+        Member updateMember = Member.updateMember( 1L,"member1", "서울", "천호동", "123-12");
+
+        assertThat(updateMember.getId()).isEqualTo(1L);
+        assertThat(updateMember.getAddress().getCity()).isEqualTo("서울");
+        assertThat(updateMember.getAddress().getStreet()).isEqualTo("천호동");
+        assertThat(updateMember.getAddress().getZipcode()).isEqualTo("123-12");
+        assertThat(updateMember.getUsername()).isEqualTo("member1");
+
+    }
+
 }
