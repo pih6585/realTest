@@ -1,7 +1,9 @@
 package com.test.jpa.realTest.entity.itemTable;
 
 import com.test.jpa.realTest.entity.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,20 +11,22 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @DiscriminatorValue("Album")
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Album extends Item {
 
     private String artist;
 
     private String etc;
 
-    public Album() {
 
+    public static  Album albumCreate(String artist, String etc, String name, int price, int stockQuantity) {
+        Album album = new Album(artist,etc,name,price,stockQuantity);
+        return album;
     }
 
-    public Album albumCreate(String artist, String etc, Long id, String name, int price, int stockQuantity) {
+    private Album(String artist, String etc, String name, int price, int stockQuantity){
         this.artist = artist;
         this.etc = etc;
-        this.itemCreate(id, name, price, stockQuantity);
-        return this;
+        this.itemCreate(name, price, stockQuantity);
     }
 }

@@ -61,13 +61,11 @@ class CategoryTest {
         assertThat(category1.getName()).isEqualTo("IT서적");
         assertThat(category2.getName()).isEqualTo("기타소설");
 
-        Book book1 = new Book();
+        Book book1 = Book.bookCreate("김영한",null,"JPA",10000,100);
         book1.createCategory(category1);
-        book1.bookCreate("김영한",null,1L,"JPA",10000,150);
 
-        Book book2 = new Book();
+        Book book2 = Book.bookCreate("김영한",null,"SPRING",10000,150);
         book2.createCategory(category1);
-        book2.bookCreate("김영한",null,1L,"SPRING",10000,150);
 
         List<Item> items = category1.getItems();
         assertThat(items).extracting("name").containsExactly("JPA","SPRING");

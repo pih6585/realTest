@@ -19,8 +19,7 @@ class OrderTest {
     public void 주문_등록()throws Exception{
         Order order = new Order();
         //member, orderItemList, Delivery;
-        Member member = new Member();
-        Member createMember = member.createTest(1L, "member", new Address("서울", "천호", "111-11"));
+        Member createMember = Member.createMember("member1","서울","천호","111-11");
         Delivery delivery = new Delivery();
         Delivery createDelivery = delivery.createDelivery(1L, createMember.getAddress(), DeliveryStatus.READY);
         List<OrderItem> orderItemList = new ArrayList<>();
@@ -38,9 +37,10 @@ class OrderTest {
     }
 
     private Item createBook(Long id, String name, int price, int stockQuantity, String author, String isbn) {
-        Book book = new Book();
+        Book book = null;
+                /*new Book();
         Item item = book.itemCreate(1L, name, price, stockQuantity);
-        book.bookCreate(author,isbn,item.getId(),item.getName(),item.getPrice(),item.getStockQuantity());
+        book.bookCreate(author,isbn,item.getId(),item.getName(),item.getPrice(),item.getStockQuantity());*/
         return book;
     }
 

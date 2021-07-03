@@ -13,7 +13,7 @@ public class ItemController {
 
     @GetMapping("items/new")
     public String createForm(Model model){
-        model.addAttribute("form",new Book());
+        model.addAttribute("form",null);
         return "items/createItemForm";
     }
 

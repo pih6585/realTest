@@ -13,8 +13,7 @@ class AlbumTest {
 
     @Test
     public void 앨범_등록() throws Exception{
-        Album album = new Album();
-        Album createAlbum = album.albumCreate("김영한", "JPA TEST", 1L, "JPA", 10000, 150);
+        Album createAlbum = Album.albumCreate("김영한","JPA TEST","JPA",10000,100);
 
         assertThat(createAlbum.getName()).isEqualTo("JPA");
         assertThat(createAlbum.getArtist()).isEqualTo("김영한");

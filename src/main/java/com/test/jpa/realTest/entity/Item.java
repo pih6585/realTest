@@ -42,8 +42,7 @@ public abstract class Item {
         return this;
     }
 
-    public Item itemCreate(Long id, String name, int price, int stockQuantity) {
-        this.id = id;
+    public Item itemCreate(String name, int price, int stockQuantity) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
