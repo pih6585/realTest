@@ -17,6 +17,7 @@ public class BookService {
     BookRepository bookRepository;
 
     //도서_저장
+    @Transactional
     public Long bookCreate(BookDto bookDto){
         Book book = Book.bookCreate(bookDto.getAuthor(),bookDto.getIsbn(),bookDto.getName(),bookDto.getPrice(),bookDto.getStockQuantity());
         Book saveBook = bookRepository.save(book);
