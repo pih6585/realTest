@@ -29,7 +29,41 @@ class BookRepositoryTest {
     @Autowired  BookRepository bookRepository;
 
     @Test
-    public void 도서_등록(){
+    public void 도서_등록() throws Exception{
+        Book book1 = Book.bookCreate("김영한","11111232","JPA",10000,120);
+        Book book2 = Book.bookCreate("공지영", "123123322", "빗방울", 15000, 100);
+
+        Book saveBook1 = bookRepository.save(book1);
+        Book saveBook2 = bookRepository.save(book2);
+
+        assertThat(saveBook1.getAuthor()).isEqualTo("김영한");
+        assertThat(saveBook2.getAuthor()).isEqualTo("공지영");
+        assertThat(saveBook1.getPrice()).isEqualTo(10000);
+    }
+
+    @Test
+    public void 도서_단일조회() throws Exception{
+        Book book1 = Book.bookCreate("김영한","11111232","JPA",10000,120);
+        Book book2 = Book.bookCreate("공지영", "123123322", "빗방울", 15000, 100);
+
+        Book saveBook1 = bookRepository.save(book1);
+        Book saveBook2 = bookRepository.save(book2);
+
+        Optional<Book> optBook1 = bookRepository.findById(saveBook1.getId());
+        Book findBook1 = Optional.ofNullable(optBook1.get()).get();
+
+        Optional<Book> optBook2 = bookRepository.findById(saveBook2.getId());
+        Book findBook2 = Optional.ofNullable(optBook2.get()).get();
+
+        assertThat(findBook1.getName()).isEqualTo("JPA");
+        assertThat(findBook1).isEqualTo(saveBook1);
+
+        assertThat(findBook2.getName()).isEqualTo("빗방울");
+        assertThat(findBook2).isEqualTo(saveBook2);
+    }
+
+    @Test
+    public void 도서_전체조회() throws Exception{
         Book book1 = Book.bookCreate("김영한","11111232","JPA",10000,120);
         Book book2 = Book.bookCreate("공지영", "123123322", "빗방울", 15000, 100);
 
@@ -39,15 +73,17 @@ class BookRepositoryTest {
         em.flush();
         em.clear();
 
-        Optional<Book> optBook1 = bookRepository.findById(saveBook1.getId());
-        Book findBook1 = Optional.ofNullable(optBook1.get()).get();
+        List<Book> bookList = bookRepository.findAll();
 
-        System.out.println("DTYPE ===============" + findBook1.getItemDtype());
+        assertThat(bookList).extracting("name").containsExactly("JPA","빗방울");
+        assertThat(bookList).extracting("price").containsExactly(10000,15000);
 
-        assertThat(saveBook1.getAuthor()).isEqualTo("김영한");
-        assertThat(saveBook2.getAuthor()).isEqualTo("공지영");
+        for (Book book : bookList) {
+            System.out.println(book.getItemDtype());
+        }
 
-        assertThat(saveBook1.getPrice()).isEqualTo(10000);
+
     }
+
 
 }
