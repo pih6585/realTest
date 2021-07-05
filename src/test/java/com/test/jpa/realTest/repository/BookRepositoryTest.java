@@ -10,6 +10,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import java.util.List;
 
@@ -20,7 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class BookRepositoryTest {
 
-    @Autowired  EntityManager em;
+    @PersistenceContext
+    EntityManager em;
+
     @Autowired  BookRepository bookRepository;
 
     @Test

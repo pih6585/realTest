@@ -35,7 +35,7 @@ public class CategoryItem {
         categoryItem.setCategory(category);
         categoryItem.setItem(item);
         category.getCategoryItems().add(categoryItem);
-        item.getCategoryItems().add(categoryItem);
+       //item.getCategoryItems().add(categoryItem);
         return categoryItem;
     }
 

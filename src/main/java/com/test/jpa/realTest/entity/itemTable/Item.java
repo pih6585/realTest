@@ -29,8 +29,8 @@ public abstract class Item {
     @Column(name = "DTYPE")
     private String typeAlias;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private List<CategoryItem> categoryItems = new ArrayList<>();
+   /* @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<CategoryItem> categoryItems = new ArrayList<>();*/
 
 
 }
