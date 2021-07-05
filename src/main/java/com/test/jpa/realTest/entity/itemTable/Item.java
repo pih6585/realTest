@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,7 @@ import java.util.List;
 @Getter @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Item {
+public abstract class Item  {
     @Id @GeneratedValue
     @Column(name = "item_id")
     private Long id;
@@ -26,11 +26,11 @@ public abstract class Item {
 
     private int stockQuantity;
 
-    @Column(name = "DTYPE")
-    private String typeAlias;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "DTYPE",insertable = false, updatable = false)
+    private ItemDtype itemDtype;
 
-   /* @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private List<CategoryItem> categoryItems = new ArrayList<>();*/
-
+   @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
 }
