@@ -1,12 +1,16 @@
 package com.test.jpa.realTest.entity.itemTable;
 
-import com.test.jpa.realTest.entity.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,6 +30,8 @@ public class Book extends Item {
     private Book(String author, String isbn, String name, int price, int stockQuantity){
         this.author = author;
         this.isbn = isbn;
-        this.itemCreate(name, price, stockQuantity);
+        this.setName(name);
+        this.setPrice(price);
+        this.setStockQuantity(stockQuantity);
     }
 }

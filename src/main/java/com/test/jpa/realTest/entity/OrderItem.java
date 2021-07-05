@@ -1,5 +1,6 @@
 package com.test.jpa.realTest.entity;
 
+import com.test.jpa.realTest.entity.itemTable.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

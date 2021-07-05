@@ -1,6 +1,7 @@
 package com.test.jpa.realTest.entity;
 
 import com.test.jpa.realTest.entity.itemTable.Book;
+import com.test.jpa.realTest.entity.itemTable.Item;
 import com.test.jpa.realTest.enumClass.DeliveryStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

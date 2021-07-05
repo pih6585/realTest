@@ -1,6 +1,5 @@
 package com.test.jpa.realTest.entity.itemTable;
 
-import com.test.jpa.realTest.entity.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +26,8 @@ public class Movie extends Item {
     private Movie(String director, String actor, String name, int price, int stockQuantity){
         this.director = director;
         this.actor = actor;
-        this.itemCreate( name, price, stockQuantity);
+        this.setName(name);
+        this.setPrice(price);
+        this.setStockQuantity(stockQuantity);
     }
 }

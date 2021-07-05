@@ -1,4 +1,4 @@
-package com.test.jpa.realTest.entity;
+package com.test.jpa.realTest.entity.itemTable;
 
 import com.test.jpa.realTest.entity.itemTable.Album;
 import com.test.jpa.realTest.entity.itemTable.Book;

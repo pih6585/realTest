@@ -1,6 +1,5 @@
 package com.test.jpa.realTest.entity.itemTable;
 
-import com.test.jpa.realTest.entity.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +26,8 @@ public class Album extends Item {
     private Album(String artist, String etc, String name, int price, int stockQuantity){
         this.artist = artist;
         this.etc = etc;
-        this.itemCreate(name, price, stockQuantity);
+        this.setName(name);
+        this.setPrice(price);
+        this.setStockQuantity(stockQuantity);
     }
 }

@@ -1,22 +1,22 @@
-package com.test.jpa.realTest.entity;
+package com.test.jpa.realTest.entity.itemTable;
 
+import com.test.jpa.realTest.entity.CategoryItem;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item {
-
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "item_id")
     private Long id;
 
@@ -32,10 +32,5 @@ public abstract class Item {
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
-    public Item itemCreate(String name, int price, int stockQuantity){
-        this.name = name;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-        return this;
-    }
+
 }
