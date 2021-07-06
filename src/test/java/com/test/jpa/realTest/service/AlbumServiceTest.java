@@ -57,4 +57,21 @@ class AlbumServiceTest {
         assertThat(albumList).extracting("price").containsExactly(800,12000);
     }
 
+    @Test
+    public void 앨범_수정() throws Exception{
+        AlbumDto albumDto1 = new AlbumDto("아이유","","금요일에만나요",800,10000);
+
+        Long saveById1 = albumService.albumCreate(albumDto1);
+
+        AlbumDto findAlbum1 = albumService.albumFindOne(saveById1);
+
+        findAlbum1.setName("1~2모음집");
+        Long updateById1 = albumService.albumUpdate(findAlbum1);
+
+        AlbumDto updateAlbum = albumService.albumFindOne(updateById1);
+
+        assertThat(updateAlbum.getName()).isEqualTo("1~2모음집");
+        assertThat(updateAlbum).isEqualTo(findAlbum1);
+    }
+
 }
