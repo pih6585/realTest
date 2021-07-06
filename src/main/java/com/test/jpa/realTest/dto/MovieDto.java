@@ -5,32 +5,35 @@ import com.test.jpa.realTest.entity.itemTable.ItemDtype;
 import lombok.Data;
 
 @Data
-public class BookDto extends ItemDto{
+public class MovieDto extends ItemDto {
 
-    private String author;
+    private String director;
 
-    private String isbn;
+    private String actor;
 
-    public BookDto(){
+    public MovieDto(){
 
     }
 
-    public BookDto(String author, String isbn, String name, int price, int stockQuantity) {
-        this.author = author;
-        this.isbn = isbn;
+    public MovieDto(String director, String actor, String name, int price, int stockQuantity) {
+        this.director = director;
+        this.actor = actor;
         this.setName(name);
         this.setPrice(price);
         this.setStockQuantity(stockQuantity);
     }
 
     @QueryProjection
-    public BookDto(Long id, String author, String isbn, String name, int price, int stockQuantity, ItemDtype itemDtype) {
+    public MovieDto(Long id, String director, String actor, String name, int price, int stockQuantity, ItemDtype itemDtype) {
         this.setId(id);
-        this.author = author;
-        this.isbn = isbn;
+        this.director = director;
+        this.actor = actor;
         this.setName(name);
         this.setPrice(price);
         this.setStockQuantity(stockQuantity);
         this.setItemDtype(itemDtype);
     }
+
+
+
 }

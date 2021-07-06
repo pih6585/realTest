@@ -79,4 +79,24 @@ class BookServiceTest {
 
     }
 
+    @Test
+    public void 도서_수정() throws  Exception{
+        BookDto bookDto1 = new BookDto("김영한","11111232","JPA",10000,120);
+        Long saveById1 = bookService.bookCreate(bookDto1);
+        BookDto findBook1 = bookService.bookFindOne(saveById1);
+
+        findBook1.setAuthor("Hello");
+
+        Long upateBook1Id = bookService.bookUpdate(findBook1);
+
+        em.flush();
+        em.clear();
+
+        BookDto updateFindBook1 = bookService.bookFindOne(upateBook1Id);
+
+        assertThat(updateFindBook1.getAuthor()).isEqualTo("Hello");
+
+
+    }
+
 }

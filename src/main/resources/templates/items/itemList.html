@@ -8,7 +8,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
+                <th>구분</th>
                 <th>상품명</th>
                 <th>가격</th>
                 <th>재고수량</th>
@@ -16,13 +16,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.id}"></td>
+            <tr th:each="item : ${itemDto}">
+                <td th:text="${item.itemDtypeName}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.stockQuantity}"></td>
                 <td>
-                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
+                    <a href="#" th:if="${item.itemDtypeName.equals('도서')}" th:href="@{/books/{id}/edit (id=${item.id})}"
+                       class="btn btn-primary" role="button">수정</a>
+                    <a href="#" th:if="${item.itemDtypeName.equals('음악')}" th:href="@{/albums/{id}/edit (id=${item.id})}"
+                       class="btn btn-primary" role="button">수정</a>
+                    <a href="#" th:if="${item.itemDtypeName.equals('영화')}" th:href="@{/movies/{id}/edit (id=${item.id})}"
                        class="btn btn-primary" role="button">수정</a>
                 </td>
             </tr>

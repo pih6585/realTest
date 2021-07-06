@@ -19,13 +19,21 @@ public class Movie extends Item {
 
 
     public static Movie movieCreate(String director, String actor, String name, int price, int stockQuantity) {
-        Movie movie = new Movie(director,actor,name,price,stockQuantity);
+        Movie movie = new Movie(null,director,actor,name,price,stockQuantity);
         return movie;
     }
 
-    private Movie(String director, String actor, String name, int price, int stockQuantity){
+    public static Movie movieUpdate(Long id, String director, String actor, String name, int price, int stockQuantity) {
+        Movie movie = new Movie(id, director,actor,name,price,stockQuantity);
+        return movie;
+    }
+
+    private Movie(Long id,String director, String actor, String name, int price, int stockQuantity){
         this.director = director;
         this.actor = actor;
+        if(id != null){
+            this.setId(id);
+        }
         this.setName(name);
         this.setPrice(price);
         this.setStockQuantity(stockQuantity);

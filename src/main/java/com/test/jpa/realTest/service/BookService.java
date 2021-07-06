@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -37,4 +38,14 @@ public class BookService {
     }
 
 
+    //도서_수정
+    @Transactional
+    public Long bookUpdate(BookDto bookDto) {
+        Optional<Book> optBook = bookRepository.findById(bookDto.getId());
+        Book findBook = Optional.ofNullable(optBook.get()).get();
+        Book updateBook = findBook.bookUpdate(bookDto.getId(), bookDto.getAuthor(), bookDto.getIsbn(), bookDto.getName(),
+                                              bookDto.getPrice(), bookDto.getStockQuantity());
+        Book saveBook = bookRepository.save(updateBook);
+        return saveBook.getId();
+    }
 }
