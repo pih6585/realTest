@@ -19,13 +19,21 @@ public class Album extends Item {
 
 
     public static  Album albumCreate(String artist, String etc, String name, int price, int stockQuantity) {
-        Album album = new Album(artist,etc,name,price,stockQuantity);
+        Album album = new Album(null,artist,etc,name,price,stockQuantity);
         return album;
     }
 
-    private Album(String artist, String etc, String name, int price, int stockQuantity){
+    public static  Album albumUpdate(Long id, String artist, String etc, String name, int price, int stockQuantity) {
+        Album album = new Album(id, artist,etc,name,price,stockQuantity);
+        return album;
+    }
+
+    private Album(Long id, String artist, String etc, String name, int price, int stockQuantity){
         this.artist = artist;
         this.etc = etc;
+        if(id != null){
+            this.setId(id);
+        }
         this.setName(name);
         this.setPrice(price);
         this.setStockQuantity(stockQuantity);
