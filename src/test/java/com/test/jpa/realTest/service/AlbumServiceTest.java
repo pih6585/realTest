@@ -74,4 +74,27 @@ class AlbumServiceTest {
         assertThat(updateAlbum).isEqualTo(findAlbum1);
     }
 
+    @Test
+    public void 앨범_리스트_수정() throws Exception{
+        AlbumDto albumDto1 = new AlbumDto("아이유","80%세일","1집",12000,99);
+        AlbumDto albumDto2 = new AlbumDto("BTS","한정판매","dyn",9900,10000);
+        AlbumDto albumDto3 = new AlbumDto("헤이즈","","비도오고",9900,150);
+
+        albumService.albumCreate(albumDto1);
+        albumService.albumCreate(albumDto2);
+        albumService.albumCreate(albumDto3);
+
+        List<AlbumDto> albumDtoList = albumService.albumFindAll();
+
+        for (AlbumDto albumDto : albumDtoList) {
+            albumDto.setName("1~2전집");
+            albumService.albumUpdate(albumDto);
+        }
+        em.flush();
+        em.clear();
+
+        List<AlbumDto> albumDtoList2 = albumService.albumFindAll();
+        assertThat(albumDtoList2).extracting("name").containsExactly("1~2전집","1~2전집","1~2전집");
+    }
+
 }

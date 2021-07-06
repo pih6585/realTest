@@ -24,10 +24,10 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -36,16 +36,25 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public static Order createOrder(Member member, List<OrderItem> orderItemList, Delivery delivery) {
-        Order order = new Order(member, orderItemList,delivery);
+    public static Order createOrder(Member member, Delivery delivery,OrderItem... orderItemList) {
+        Order order = new Order(null,member, delivery, orderItemList);
         return order;
     }
 
-    private Order(Member member, List<OrderItem> orderItemList, Delivery delivery){
+    public static Order updateOrder(Long id, Member member, Delivery delivery,OrderItem... orderItemList) {
+        Order order = new Order(id,member, delivery, orderItemList);
+        return order;
+    }
+
+    private Order(Long id, Member member, Delivery delivery,OrderItem... orderItemList){
+        if(id != null){
+            this.id = id;
+        }
         this.member = member;
         member.getOrderList().add(this);
         for (OrderItem orderItem : orderItemList) {
             this.orderItems.add(orderItem);
+            orderItem.setInitOrder(this);
         }
         this.delivery = delivery;
         delivery.createOrder(this);

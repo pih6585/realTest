@@ -29,11 +29,20 @@ public class OrderItem {
 
     private int count;
 
-    public OrderItem createOrderItem(Long id, Item item, int count){
+    protected void setInitOrder(Order order){
+        this.order = order;
+    }
+
+    public static OrderItem createOrderItem(Item item, int count){
+        OrderItem orderItem = new OrderItem(null,item,count);
+        return orderItem;
+    }
+
+    private OrderItem(Long id, Item item, int count){
         this.id = id;
         this.item = item;
         this.orderPrice = item.getPrice()*count;
         this.count = count;
-        return this;
+        item.orderCreateStock(count);
     }
 }

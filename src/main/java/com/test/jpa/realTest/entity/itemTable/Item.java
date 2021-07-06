@@ -1,6 +1,7 @@
 package com.test.jpa.realTest.entity.itemTable;
 
 import com.test.jpa.realTest.entity.CategoryItem;
+import com.test.jpa.realTest.exception.NotEnoughStockException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +34,11 @@ public abstract class Item  {
    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
+    public void orderCreateStock(int count){
+       int reminderQty =  this.stockQuantity - count;
+       if(reminderQty < 0){
+        throw new NotEnoughStockException("재고 부족");
+       }
+        this.stockQuantity = reminderQty;
+    };
 }

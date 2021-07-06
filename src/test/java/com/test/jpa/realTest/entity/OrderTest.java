@@ -20,18 +20,15 @@ class OrderTest {
     public void 주문_등록()throws Exception{
         Member createMember = Member.createMember("member1","서울","천호","111-11");
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
-        List<OrderItem> orderItemList = new ArrayList<>();
-        Item book1 = createBook(1L,"JPA",10000,100,"김영한","12345567");
-        Item book2 = createBook(1L,"SPRING",10000,100,"김영한","12345567");
+        Item book1 = createBook(1L,"JPA",10000,1,"김영한","12345567");
+        Item book2 = createBook(1L,"SPRING",10000,1,"김영한","12345567");
         OrderItem orderItem1 = initOrderItem(1L,book1,1);
-        OrderItem orderItem2 = initOrderItem(2L,book2,2);
-        orderItemList.add(orderItem1);
-        orderItemList.add(orderItem2);
-        Order createOrder = Order.createOrder(createMember, orderItemList, createDelivery);
+        OrderItem orderItem2 = initOrderItem(2L,book2,1);
+        Order createOrder = Order.createOrder(createMember,  createDelivery, orderItem1, orderItem2);
 
         assertThat(createOrder.getMember().getUsername()).isEqualTo("member1");
         assertThat(createOrder.getDelivery().getAddress().getCity()).isEqualTo("서울");
-        assertThat(createOrder.getOrderItems()).extracting("orderPrice").containsExactly(10000,20000);
+        assertThat(createOrder.getOrderItems()).extracting("orderPrice").containsExactly(10000,10000);
     }
 
     private Item createBook(Long id, String name, int price, int stockQuantity, String author, String isbn) {
@@ -40,8 +37,7 @@ class OrderTest {
     }
 
     private OrderItem initOrderItem(Long id,Item item, int count) {
-        OrderItem orderItem = new OrderItem();
-        orderItem.createOrderItem(id,item,count);
+        OrderItem orderItem = OrderItem.createOrderItem(item,count);
         return orderItem;
     }
 }
