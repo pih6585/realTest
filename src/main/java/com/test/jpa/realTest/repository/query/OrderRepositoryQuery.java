@@ -10,6 +10,6 @@ public interface OrderRepositoryQuery {
     List<OrderDto> findAllByInItemDto();
 
     //제품조인 - 제외 - 전체
-    List<OrderDto> findByAllByNotInItemDto();
+    List<OrderDto> findByAllByNotInItemDto(OrderDto orderDto);
 
 }

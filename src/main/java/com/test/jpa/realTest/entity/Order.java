@@ -1,6 +1,8 @@
 package com.test.jpa.realTest.entity;
 
+import com.test.jpa.realTest.enumClass.DeliveryStatus;
 import com.test.jpa.realTest.enumClass.OrderStatus;
+import com.test.jpa.realTest.exception.DeliveryCompException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -60,5 +62,15 @@ public class Order {
         delivery.createOrder(this);
         this.orderDate = LocalDateTime.now();
         this.status = OrderStatus.ORDER;
+    }
+
+    public void orderCancel() {
+        if(delivery.getStatus().equals(DeliveryStatus.COMP)){
+            throw new DeliveryCompException("배달이 완료된 주문내역 입니다.");
+        }
+        this.status = OrderStatus.CANCEL;
+        for(OrderItem orderItem : orderItems){
+            orderItem.itemOrderCancel();
+        }
     }
 }

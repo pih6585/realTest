@@ -121,7 +121,9 @@ class OrderRepositoryTest {
         em.flush();
         em.clear();
 
-        List<OrderDto> orderInItemList = orderRepository.findByAllByNotInItemDto();
+        OrderDto schOrderDto = new OrderDto();
+
+        List<OrderDto> orderInItemList = orderRepository.findByAllByNotInItemDto(schOrderDto);
 
         for (OrderDto orderDto : orderInItemList) {
             System.out.println(orderDto.getItemName());
@@ -154,8 +156,10 @@ class OrderRepositoryTest {
         em.flush();
         em.clear();
 
+        OrderDto schOrderDto = new OrderDto();
+        //schOrderDto.setUsername("member1");
         //order list 가져오는 부분
-        List<OrderDto> orderNotInItemList = orderRepository.findByAllByNotInItemDto();
+        List<OrderDto> orderNotInItemList = orderRepository.findByAllByNotInItemDto(schOrderDto);
 
         //order id 뽑아오는 부분
         List<Long> orderIds = otderIdList(orderNotInItemList);

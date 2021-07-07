@@ -41,4 +41,8 @@ public abstract class Item  {
        }
         this.stockQuantity = reminderQty;
     };
+
+    public void orderCancelStock(int count){
+        this.stockQuantity += count;
+    }
 }

@@ -59,8 +59,8 @@ public class OrderService {
     }
 
     //주문 조회
-    public List<OrderDto> findOrderAll(){
-        List<OrderDto> orderNotInItemList = orderRepository.findByAllByNotInItemDto();
+    public List<OrderDto> findOrderAll(OrderDto schOrderDto){
+        List<OrderDto> orderNotInItemList = orderRepository.findByAllByNotInItemDto(schOrderDto);
 
         //order id 뽑아오는 부분
         List<Long> orderIds = otderIdList(orderNotInItemList);
@@ -73,6 +73,13 @@ public class OrderService {
         }
 
         return orderNotInItemList;
+    }
+
+    @Transactional
+    public void orderCancel(Long orderId) {
+        Optional<Order> optOrder = orderRepository.findById(orderId);
+        Order findOrder = Optional.ofNullable(optOrder.get()).get();
+        findOrder.orderCancel();
     }
 
     private List<OrderItemDto> getOrderItemList(Long orderId, List<OrderItemDto> orderItemDtoList) {

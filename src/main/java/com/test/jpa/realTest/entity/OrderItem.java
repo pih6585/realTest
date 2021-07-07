@@ -45,4 +45,8 @@ public class OrderItem {
         this.count = count;
         item.orderCreateStock(count);
     }
+
+    public void itemOrderCancel() {
+        item.orderCancelStock(this.count);
+    }
 }

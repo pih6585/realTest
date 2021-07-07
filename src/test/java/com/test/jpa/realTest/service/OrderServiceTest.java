@@ -1,9 +1,11 @@
 package com.test.jpa.realTest.service;
 
+import com.test.jpa.realTest.dto.OrderDto;
 import com.test.jpa.realTest.entity.Member;
 import com.test.jpa.realTest.entity.Order;
 import com.test.jpa.realTest.entity.itemTable.Book;
 import com.test.jpa.realTest.entity.itemTable.Item;
+import com.test.jpa.realTest.enumClass.OrderStatus;
 import com.test.jpa.realTest.repository.ItemRepository;
 import com.test.jpa.realTest.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
@@ -66,7 +68,33 @@ class OrderServiceTest {
         em.flush();
         em.clear();
 
-        orderService.findOrderAll();
+        OrderDto schOrderDto = new OrderDto();
+
+        orderService.findOrderAll(schOrderDto);
+    }
+
+    @Test
+    public void 주문_취소()throws Exception{
+
+        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member saveMember = memberRepository.save(createMember);
+
+        Item book1 = Book.bookCreate("김영한","13123123","JPA",100000,100);
+        Item saveItem = itemRepository.save(book1);
+
+
+        Long findById = orderService.orderCreate(saveMember.getId(), saveItem.getId(), 2);
+
+
+        orderService.orderCancel(findById);
+
+        em.flush();
+        em.clear();
+
+        Order updateOrder = orderService.findOrderByOne(findById);
+
+        assertThat(updateOrder.getStatus()).isEqualTo(OrderStatus.CANCEL);
+
     }
 
 }
