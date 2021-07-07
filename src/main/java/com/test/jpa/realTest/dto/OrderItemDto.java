@@ -18,6 +18,7 @@ public class OrderItemDto {
 
     }
 
+    @QueryProjection
     public OrderItemDto( String itemName, int orderPrice, int count){
         this.itemName = itemName;
         this.orderPrice = orderPrice;
@@ -31,5 +32,6 @@ public class OrderItemDto {
         this.orderPrice = orderPrice;
         this.count = count;
     }
+
 
 }

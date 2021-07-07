@@ -26,6 +26,10 @@ public class OrderDto {
     private int orderPrice;
     private int count;
 
+    public OrderDto(){
+
+    }
+
     public OrderDto(String username, String city, String street, String zipcode) {
         this.username = username;
         this.city = city;
