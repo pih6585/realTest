@@ -86,7 +86,8 @@ class OrderRepositoryTest {
         em.flush();
         em.clear();
 
-        List<OrderDto> orderInItemList = orderRepository.findAllByInItemDto();
+        OrderDto schOrderDto = new OrderDto();
+        List<OrderDto> orderInItemList = orderRepository.findAllByInItemDto(schOrderDto);
       
         for (OrderDto orderDto : orderInItemList) {
             System.out.println(orderDto.getItemName());

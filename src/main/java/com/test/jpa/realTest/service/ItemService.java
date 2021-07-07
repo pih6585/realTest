@@ -16,7 +16,22 @@ public class ItemService {
     ItemRepository itemRepository;
 
     //전체 제품조회
-    public List<ItemDto> itemList(){
+    public List<ItemDto> itemList() {
         return itemRepository.findAllByDtypeList();
+    }
+
+    //도서 제품조회
+    public List<ItemDto> bookList() {
+        return itemRepository.findAllByBookList();
+    }
+
+    //음악 제품조회
+    public List<ItemDto> albumList() {
+        return itemRepository.findAllByAlbumList();
+    }
+
+    //영화 제품조회
+    public List<ItemDto> movieList() {
+        return itemRepository.findAllByMovieList();
     }
 }

@@ -55,8 +55,10 @@ public class Order {
         this.member = member;
         member.getOrderList().add(this);
         for (OrderItem orderItem : orderItemList) {
-            this.orderItems.add(orderItem);
-            orderItem.setInitOrder(this);
+            if(orderItem != null){
+                this.orderItems.add(orderItem);
+                orderItem.setInitOrder(this);
+            }
         }
         this.delivery = delivery;
         delivery.createOrder(this);

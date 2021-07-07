@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface ItemRepositoryQuery {
     List<ItemDto> findAllByDtypeList();
+    List<ItemDto> findAllByBookList();
+    List<ItemDto> findAllByAlbumList();
+    List<ItemDto> findAllByMovieList();
 }

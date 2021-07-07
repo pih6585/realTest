@@ -15,17 +15,45 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="item">상품명</label>
-            <select name="itemId" id="item" class="form-control">
+            <label for="book">상품명(도서)</label>
+            <select name="bookId" id="book" class="form-control">
                 <option value="">상품선택</option>
-                <option th:each="item : ${items}"
-                        th:value="${item.id}"
-                        th:text="${item.name}" />
+                <option th:each="book : ${books}"
+                        th:value="${book.id}"
+                        th:text="${book.name}" />
             </select>
         </div>
         <div class="form-group">
-            <label for="count">주문수량</label>
-            <input type="number" name="count" class="form-control" id="count"
+            <label for="count1">주문수량1</label>
+            <input type="number" name="count1" class="form-control" id="count1"
+                   placeholder="주문 수량을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="album">상품명(음악)</label>
+            <select name="albumId" id="album" class="form-control">
+                <option value="">상품선택</option>
+                <option th:each="album : ${albums}"
+                        th:value="${album.id}"
+                        th:text="${album.name}" />
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="count1">주문수량2</label>
+            <input type="number" name="count2" class="form-control" id="count2"
+                   placeholder="주문 수량을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="movie">상품명(영화)</label>
+            <select name="movieId" id="movie" class="form-control">
+                <option value="">상품선택</option>
+                <option th:each="movie : ${movies}"
+                        th:value="${movie.id}"
+                        th:text="${movie.name}" />
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="count1">주문수량3</label>
+            <input type="number" name="count3" class="form-control" id="count3"
                    placeholder="주문 수량을 입력하세요">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

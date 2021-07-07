@@ -37,4 +37,49 @@ public class ItemRepositoryImpl implements ItemRepositoryQuery {
 
         return itemList;
     }
+
+    @Override
+    public List<ItemDto> findAllByBookList() {
+        List<ItemDto> bookList = queryFactory
+                .select(new QItemDto(item.id, item.name, item.price, item.stockQuantity, item.itemDtype,
+                        item.itemDtype.when(ItemDtype.Book).then("도서")
+                                .when(ItemDtype.Album).then("음악")
+                                .when(ItemDtype.Movie).then("영화")
+                                .otherwise("기타")
+                ))
+                .from(item)
+                .where(item.itemDtype.eq(ItemDtype.Book))
+                .fetch();
+        return bookList;
+    }
+
+    @Override
+    public List<ItemDto> findAllByAlbumList() {
+        List<ItemDto> albumList = queryFactory
+                .select(new QItemDto(item.id, item.name, item.price, item.stockQuantity, item.itemDtype,
+                        item.itemDtype.when(ItemDtype.Book).then("도서")
+                                .when(ItemDtype.Album).then("음악")
+                                .when(ItemDtype.Movie).then("영화")
+                                .otherwise("기타")
+                ))
+                .from(item)
+                .where(item.itemDtype.eq(ItemDtype.Album))
+                .fetch();
+        return albumList;
+    }
+
+    @Override
+    public List<ItemDto> findAllByMovieList() {
+        List<ItemDto> movieList = queryFactory
+                .select(new QItemDto(item.id, item.name, item.price, item.stockQuantity, item.itemDtype,
+                        item.itemDtype.when(ItemDtype.Book).then("도서")
+                                .when(ItemDtype.Album).then("음악")
+                                .when(ItemDtype.Movie).then("영화")
+                                .otherwise("기타")
+                ))
+                .from(item)
+                .where(item.itemDtype.eq(ItemDtype.Movie))
+                .fetch();
+        return movieList;
+    }
 }

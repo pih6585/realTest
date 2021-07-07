@@ -35,7 +35,7 @@ public class OrderRepositoryImpl implements OrderRepositoryQuery{
 
 
     @Override
-    public List<OrderDto> findAllByInItemDto() {
+    public List<OrderDto> findAllByInItemDto(OrderDto orderDto) {
         List<OrderDto> orderDtoList = queryFactory
                 .select(new QOrderDto(order.id,
                         member.username,
@@ -45,7 +45,9 @@ public class OrderRepositoryImpl implements OrderRepositoryQuery{
                 .from(order)
                 .join(order.member, member)
                 .join(order.delivery, delivery)
-                .join(order.orderItems, orderItem).fetch();
+                .join(order.orderItems, orderItem)
+                .where(memberNameEq(orderDto.getUsername()),orderStatusEq(orderDto.getOrderStatus()))
+                .fetch();
         return orderDtoList;
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 public interface OrderRepositoryQuery {
 
     //전체 조인 - 전체
-    List<OrderDto> findAllByInItemDto();
+    List<OrderDto> findAllByInItemDto(OrderDto orderDto);
 
     //제품조인 - 제외 - 전체
     List<OrderDto> findByAllByNotInItemDto(OrderDto orderDto);
