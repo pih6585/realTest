@@ -18,7 +18,7 @@ class OrderTest {
 
     @Test
     public void 주문_등록()throws Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
         Item book1 = createBook(1L,"JPA",10000,1,"김영한","12345567");
         Item book2 = createBook(1L,"SPRING",10000,1,"김영한","12345567");

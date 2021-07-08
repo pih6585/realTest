@@ -23,7 +23,8 @@ public class MemberService {
 
     @Transactional
     public Long memberCreate(MemberDto memberDto){
-        Member member = Member.createMember(memberDto.getName(), memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
+        Member member = Member.createMember(memberDto.getName(), memberDto.getEmail(), memberDto.getPassword(),
+                                            memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
         Member saveMember = memberRepository.save(member);
         return saveMember.getId();
     }
@@ -32,7 +33,8 @@ public class MemberService {
     public Long memberUpdate(MemberDto memberDto){
         Optional<Member> optMember = memberRepository.findById(memberDto.getId());
         Member findMember = Optional.ofNullable(optMember.get()).get();
-        Member updateMember = findMember.updateMember(memberDto.getId(), memberDto.getName(), memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
+        Member updateMember = findMember.updateMember(memberDto.getId(), memberDto.getName(), memberDto.getEmail(), memberDto.getPassword(),
+                                                       memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
         Member saveMember = memberRepository.save(updateMember);
         return saveMember.getId();
     }

@@ -38,7 +38,7 @@ class OrderRepositoryTest {
 
     @Test
     public void 주문_저장() throws  Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         em.persist(createMember);
 
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
@@ -67,7 +67,7 @@ class OrderRepositoryTest {
 
     @Test
     public void 주문조회_제품포함() throws  Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         em.persist(createMember);
 
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
@@ -103,7 +103,7 @@ class OrderRepositoryTest {
 
     @Test
     public void 주문조회_제품미포함() throws  Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         em.persist(createMember);
 
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);
@@ -138,7 +138,7 @@ class OrderRepositoryTest {
     //주문조회_제품미포함_별도_제품조회
     @Test
     public void 주문조회_제품미포함_별도_제품조회() throws  Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         em.persist(createMember);
 
         Delivery createDelivery = Delivery.createDelivery( createMember.getAddress(), DeliveryStatus.READY);

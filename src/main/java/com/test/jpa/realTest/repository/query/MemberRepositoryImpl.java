@@ -29,7 +29,8 @@ public class MemberRepositoryImpl implements MemberRepositoryQuery {
     @Override
     public MemberDto findByOneByDto(Long id) {
         MemberDto memberDto = queryFactory
-                .select(new QMemberDto(member.id,member.username, member.address.city, member.address.street, member.address.zipcode))
+                .select(new QMemberDto(member.id,member.username, member.email, member.password,
+                                       member.address.city, member.address.street, member.address.zipcode))
                 .from(member)
                 .where(member.id.eq(id))
                 .fetchOne();
@@ -39,7 +40,8 @@ public class MemberRepositoryImpl implements MemberRepositoryQuery {
     @Override
     public List<MemberDto> findByAllByDto() {
         List<MemberDto> memberDtoList = queryFactory
-                .select(new QMemberDto(member.id,member.username, member.address.city, member.address.street, member.address.zipcode))
+                .select(new QMemberDto(member.id,member.username, member.email, member.password,
+                                       member.address.city, member.address.street, member.address.zipcode))
                 .from(member)
                 .fetch();
         return memberDtoList;
@@ -48,7 +50,8 @@ public class MemberRepositoryImpl implements MemberRepositoryQuery {
     @Override
     public Page<MemberDto> findByAllByDtoPaging(Pageable pageable) {
         QueryResults<MemberDto> queryList = queryFactory
-                .select(new QMemberDto(member.id, member.username, member.address.city, member.address.street, member.address.zipcode))
+                .select(new QMemberDto(member.id, member.username, member.email, member.password,
+                                       member.address.city, member.address.street, member.address.zipcode))
                 .from(member)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

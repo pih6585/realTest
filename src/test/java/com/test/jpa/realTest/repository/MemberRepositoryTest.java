@@ -34,21 +34,21 @@ class MemberRepositoryTest {
 
     @Test
     public void 멤버_저장() {
-        Member member = Member.createMember("member1", "서울", "천호", "11-11");
+        Member member = Member.createMember("member1","pih6585@nate.com" ,"1234", "서울", "천호", "11-11");
         Member saveMember = memberRepository.save(member);
         assertThat(saveMember.getUsername()).isEqualTo("member1");
     }
 
     @Test
     public void 맴버_수정() {
-        Member member = Member.createMember("member1", "서울", "천호", "11-11");
+        Member member = Member.createMember("member1", "pih6585@nate.com" ,"1234","서울", "천호", "11-11");
         Member saveMember = memberRepository.save(member);
         assertThat(saveMember.getUsername()).isEqualTo("member1");
 
         Optional<Member> optMember = memberRepository.findById(saveMember.getId());
         Member findMember = Optional.ofNullable(optMember.get()).get();
-        findMember = Member.updateMember(saveMember.getId(), "testMember1", member.getAddress().getCity(),
-                                          member.getAddress().getStreet(), member.getAddress().getZipcode());
+        findMember = Member.updateMember(saveMember.getId(), "testMember1",member.getEmail(),member.getPassword(),
+                                         member.getAddress().getCity(), member.getAddress().getStreet(), member.getAddress().getZipcode());
         Member updateMember = memberRepository.save(findMember);
 
         assertThat(updateMember.getUsername()).isEqualTo("testMember1");
@@ -56,7 +56,7 @@ class MemberRepositoryTest {
 
     @Test
     public void 맴버_단일조회() {
-        Member member = Member.createMember("member1", "서울", "천호", "11-11");
+        Member member = Member.createMember("member1","pih6585@nate.com" , "1234","서울", "천호", "11-11");
         Member saveMember = memberRepository.save(member);
 
         em.flush();
@@ -72,10 +72,10 @@ class MemberRepositoryTest {
 
     @Test
     public void 맴버_전체조회() {
-        Member member1 = Member.createMember("member1", "서울", "천호", "11-11");
+        Member member1 = Member.createMember("member1", "pih6585@nate.com" ,"1234","서울", "천호", "11-11");
         memberRepository.save(member1);
 
-        Member member2 = Member.createMember("member2", "서울", "천호", "11-11");
+        Member member2 = Member.createMember("member2", "pih1111@nate.com" ,"1234","서울", "천호", "11-11");
         memberRepository.save(member2);
 
         List<Member> memberList = memberRepository.findAll();
@@ -86,7 +86,7 @@ class MemberRepositoryTest {
     @Test
     public void 맴버_페이징조회() throws Exception{
         for(int i=0;i<100;i++){
-            Member member = Member.createMember("member"+(i+1),"서울","천호",i+1+"");
+            Member member = Member.createMember("member"+(i+1),"pih"+i+"@nate.com" ,"1234","서울","천호",i+1+"");
             memberRepository.save(member);
         }
             Pageable pageable =PageRequest.of(0,10,Sort.by("username").ascending());

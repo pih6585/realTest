@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,14 @@ public class Member {
 
     private String username;
 
+    @Column(unique = true, nullable = false, updatable = false)
+    @Email
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+
     @Embedded
     private Address address;
 
@@ -34,19 +44,21 @@ public class Member {
      * 문제가 될것 같지는 않음..
      */
 
-    public static Member createMember(String name, String city, String street, String zipcode) {
-        Member member = new Member(null,name, city, street, zipcode);
+    public static Member createMember(String name,String email, String password, String city, String street, String zipcode) {
+        Member member = new Member(null,name,email,password, city, street, zipcode);
         return member;
     }
 
-    public static Member updateMember(Long id,String name, String city, String street, String zipcode) {
-        Member member = new Member(id, name, city, street, zipcode);
+    public static Member updateMember(Long id,String name,String email,String password, String city, String street, String zipcode) {
+        Member member = new Member(id, name,email, password,city, street, zipcode);
         return member;
     }
 
-    private Member(Long id,String name, String city, String street, String zipcode) {
+    private Member(Long id,String name, String email,String password, String city, String street, String zipcode) {
         this.id = id;
         this.username = name;
+        this.email = email;
+        this.password = password;
         Address address = new Address(city, street, zipcode);
         this.address = address;
     }

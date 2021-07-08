@@ -38,7 +38,7 @@ class OrderServiceTest {
 
     @Test
     public void 주문_저장() throws Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         Member saveMember = memberRepository.save(createMember);
 
         Item book1 = Book.bookCreate("김영한","13123123","JPA",100000,100);
@@ -57,7 +57,7 @@ class OrderServiceTest {
 
     @Test
     public void 주문_타입별_저장() throws Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         Member saveMember = memberRepository.save(createMember);
 
         Item book1 = Book.bookCreate("김영한","13123123","JPA",100000,100);
@@ -79,7 +79,7 @@ class OrderServiceTest {
 
     @Test
     public void 주문_조회() throws  Exception{
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         Member saveMember = memberRepository.save(createMember);
 
         Item book1 = Book.bookCreate("김영한","13123123","JPA",100000,100);
@@ -99,7 +99,7 @@ class OrderServiceTest {
     @Test
     public void 주문_취소()throws Exception{
 
-        Member createMember = Member.createMember("member1","서울","천호","111-11");
+        Member createMember = Member.createMember("member1","pih6585@nate.com" ,"1234","서울","천호","111-11");
         Member saveMember = memberRepository.save(createMember);
 
         Item book1 = Book.bookCreate("김영한","13123123","JPA",100000,100);
