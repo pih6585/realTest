@@ -101,7 +101,6 @@ public class OrderService {
             orderDto.setOrderItemList(getOrderItemList(orderDto.getOrderId(), orderItemDtoList));
         }
 
-        System.out.println(orderNotInItemList.size());
         return orderNotInItemList;
     }
 

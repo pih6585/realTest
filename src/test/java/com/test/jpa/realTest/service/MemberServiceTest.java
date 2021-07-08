@@ -1,11 +1,16 @@
 package com.test.jpa.realTest.service;
 
 import com.test.jpa.realTest.dto.MemberDto;
+import com.test.jpa.realTest.entity.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -100,6 +105,21 @@ class MemberServiceTest {
             System.out.println(memberDto.toString());
         }
         assertThat(memberList).extracting("username").containsExactly("member1","member2");
+    }
+
+    @Test
+    public void 맴버_서비스_페이징조회() {
+        for(int i=0;i<100;i++){
+            MemberDto memberDto = new MemberDto("member"+(i+1),"서울","천호",i+1+"");
+            memberService.memberCreate(memberDto);
+        }
+        Pageable pageable = PageRequest.of(0,10);
+        Page<MemberDto> memberDtoPagingList = memberService.memberFindAllPaging(pageable);
+
+        for (MemberDto memberDto : memberDtoPagingList) {
+            System.out.println(memberDto.getName());
+        }
+        assertThat(memberDtoPagingList.getSize()).isEqualTo(10);
     }
 
 }

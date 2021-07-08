@@ -8,6 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional(readOnly = true)
+@Transactional
 @Rollback(value = false)
 class MemberRepositoryTest {
 
@@ -28,12 +32,6 @@ class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @Transactional
     @Test
     public void 멤버_저장() {
         Member member = Member.createMember("member1", "서울", "천호", "11-11");
@@ -41,7 +39,6 @@ class MemberRepositoryTest {
         assertThat(saveMember.getUsername()).isEqualTo("member1");
     }
 
-    @Transactional
     @Test
     public void 맴버_수정() {
         Member member = Member.createMember("member1", "서울", "천호", "11-11");
@@ -58,7 +55,6 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void 맴버_단일조회() {
         Member member = Member.createMember("member1", "서울", "천호", "11-11");
         Member saveMember = memberRepository.save(member);
@@ -75,7 +71,6 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void 맴버_전체조회() {
         Member member1 = Member.createMember("member1", "서울", "천호", "11-11");
         memberRepository.save(member1);
@@ -87,4 +82,21 @@ class MemberRepositoryTest {
 
         assertThat(memberList).extracting("username").containsExactly("member1", "member2");
     }
+
+    @Test
+    public void 맴버_페이징조회() throws Exception{
+        for(int i=0;i<100;i++){
+            Member member = Member.createMember("member"+(i+1),"서울","천호",i+1+"");
+            memberRepository.save(member);
+        }
+            Pageable pageable =PageRequest.of(0,10,Sort.by("username").ascending());
+            Page<MemberDto> pageMemberList = memberRepository.findByAllByDtoPaging(pageable);
+
+            for (MemberDto memberDto : pageMemberList) {
+                System.out.println(memberDto.getName());
+            }
+            assertThat(pageMemberList.getSize()).isEqualTo(10);
+
+    }
+
 }

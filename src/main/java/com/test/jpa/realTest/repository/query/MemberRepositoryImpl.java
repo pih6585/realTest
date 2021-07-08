@@ -1,10 +1,14 @@
 package com.test.jpa.realTest.repository.query;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.test.jpa.realTest.dto.MemberDto;
 import com.test.jpa.realTest.dto.QMemberDto;
 import com.test.jpa.realTest.entity.QMember;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -39,5 +43,18 @@ public class MemberRepositoryImpl implements MemberRepositoryQuery {
                 .from(member)
                 .fetch();
         return memberDtoList;
+    }
+
+    @Override
+    public Page<MemberDto> findByAllByDtoPaging(Pageable pageable) {
+        QueryResults<MemberDto> queryList = queryFactory
+                .select(new QMemberDto(member.id, member.username, member.address.city, member.address.street, member.address.zipcode))
+                .from(member)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        List<MemberDto> memberDtoList = queryList.getResults();
+        long total = queryList.getTotal();
+        return new PageImpl<>(memberDtoList,pageable,total);
     }
 }
