@@ -32,7 +32,7 @@ public class AlbumController {
             return "items/createAlbumForm";
         }
         albumService.albumCreate(albumDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("albums/{id}/edit")
@@ -48,7 +48,7 @@ public class AlbumController {
             return "items/updateAlbumForm";
         }
         albumService.albumUpdate(albumDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }

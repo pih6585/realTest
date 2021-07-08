@@ -37,7 +37,7 @@ public class MemberController {
         }
 
         memberService.memberCreate(memberDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping("members/update")
@@ -47,7 +47,7 @@ public class MemberController {
         }
 
         memberService.memberUpdate(memberDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/members")

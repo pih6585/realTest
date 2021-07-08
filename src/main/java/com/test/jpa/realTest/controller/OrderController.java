@@ -52,7 +52,7 @@ public class OrderController {
                          @RequestParam(value = "count2", defaultValue = "1") int count2,
                          @RequestParam(value = "count3", defaultValue = "1")   int count3){
         orderService.orderCreate_allType(memberId,bookId,count1,albumId,count2,movieId,count3);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("orders")

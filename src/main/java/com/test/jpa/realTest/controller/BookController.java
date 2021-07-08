@@ -33,7 +33,7 @@ public class BookController {
             return "items/createBookForm";
         }
         bookService.bookCreate(bookDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("books/{id}/edit")
@@ -49,7 +49,7 @@ public class BookController {
             return "items/updateBookForm";
         }
         bookService.bookUpdate(bookDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }

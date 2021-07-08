@@ -32,7 +32,7 @@ public class MovieController {
             return "items/createMovieForm";
         }
         movieService.movieCreate(movieDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("movies/{id}/edit")
@@ -48,7 +48,7 @@ public class MovieController {
             return "items/updateMovieForm";
         }
         movieService.movieUpdate(movieDto);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }
