@@ -99,4 +99,15 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void 이메일_회원정보조회() throws Exception{
+        Member member = Member.createMember("member","pih1111@nate.com" ,"1234","서울","천호","111");
+        memberRepository.save(member);
+
+        Optional<Member> optMember = memberRepository.findByEmail("pih1111@nate.com");
+        Member findMember = Optional.ofNullable(optMember.get()).get();
+
+        assertThat(findMember.getEmail()).isEqualTo(member.getEmail());
+    };
+
 }

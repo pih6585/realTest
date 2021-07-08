@@ -9,7 +9,7 @@
 <body>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-  <form role="form" action="/members/update" th:object="${memberDto}"
+  <form role="form" th:action="@{/members/update}" th:object="${memberDto}"
         method="post">
     <input type="hidden" th:field="*{id}" />
     <input type="hidden" th:field="*{password}" />
