@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form th:object="${albumDto}" method="post" action="/albums/update">
+    <form th:object="${albumDto}" method="post" th:action="@{/albums/update}">
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">

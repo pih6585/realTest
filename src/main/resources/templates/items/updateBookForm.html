@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form th:object="${bookDto}" method="post" action="/books/update">
+    <form th:object="${bookDto}" method="post" th:action="@{/books/update}">
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
