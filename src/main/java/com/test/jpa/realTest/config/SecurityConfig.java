@@ -1,6 +1,7 @@
 package com.test.jpa.realTest.config;
 
 import com.test.jpa.realTest.authFilter.CustomAuthenticationFilter;
+import com.test.jpa.realTest.authFilter.CustomAuthenticationProvider;
 import com.test.jpa.realTest.authFilter.CustomLoginSuccessHandler;
 import com.test.jpa.realTest.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -51,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(bCryptPasswordEncoder());
+       // auth.userDetailsService(memberService).passwordEncoder(bCryptPasswordEncoder());
+        auth.authenticationProvider(customAuthenticationProvider());
     }
 
     @Bean
@@ -62,6 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.afterPropertiesSet();
         return customAuthenticationFilter;
     }
+
+    @Bean
+    public CustomAuthenticationProvider customAuthenticationProvider() {
+        return new CustomAuthenticationProvider(bCryptPasswordEncoder(),memberService);
+    }
+
 
     @Bean
     public CustomLoginSuccessHandler customLoginSuccessHandler() {

@@ -4,10 +4,12 @@ import com.test.jpa.realTest.entity.Member;
 import com.test.jpa.realTest.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @RequiredArgsConstructor
@@ -17,6 +19,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final MemberService memberService;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    public CustomAuthenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder, MemberService memberService) {
+        this.passwordEncoder = bCryptPasswordEncoder;
+        this.memberService = memberService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -27,11 +33,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String userPw = (String) token.getCredentials();
         // UserDetailsService를 통해 DB에서 아이디로 사용자 조회
 
-        Member member = (Member)  memberService.loadUserByUsername(userEmail);
-        if (!passwordEncoder.matches(userPw, member.getPassword())) {
+        UserDetails userDetails = memberService.loadUserByUsername(userEmail);
+        if (!passwordEncoder.matches(userPw, userDetails.getPassword())) {
             throw new IllegalStateException("패스워드 불일치");
         }
-        return new UsernamePasswordAuthenticationToken(member, userPw, null);
+        return new UsernamePasswordAuthenticationToken(userDetails, userPw, null);
 
     }
 
