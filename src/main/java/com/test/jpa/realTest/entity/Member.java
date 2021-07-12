@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

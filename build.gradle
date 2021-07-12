@@ -28,6 +28,8 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'com.querydsl:querydsl-jpa' //querydsl 추가
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+	implementation 'org.mybatis:mybatis:3.5.6' //mybatis
+	implementation 'org.mybatis:mybatis-spring:2.0.6' //mybatis spring
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
