@@ -3,6 +3,7 @@ package com.test.jpa.realTest.service;
 import com.test.jpa.realTest.dto.BookDto;
 import com.test.jpa.realTest.entity.itemTable.Book;
 import com.test.jpa.realTest.repository.BookRepository;
+import com.test.jpa.realTest.repository.CategoryItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +18,22 @@ public class BookService {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    CategoryItemService categoryItemService;
+
     //도서_저장
     @Transactional
     public Long bookCreate(BookDto bookDto){
         Book book = Book.bookCreate(bookDto.getAuthor(),bookDto.getIsbn(),bookDto.getName(),bookDto.getPrice(),bookDto.getStockQuantity());
         Book saveBook = bookRepository.save(book);
+        return saveBook.getId();
+    }
+
+    @Transactional
+    public Long bookCreateWithCategory(BookDto bookDto,Long categoryId){
+        Book book = Book.bookCreate(bookDto.getAuthor(),bookDto.getIsbn(),bookDto.getName(),bookDto.getPrice(),bookDto.getStockQuantity());
+        Book saveBook = bookRepository.save(book);
+        categoryItemService.createCategoryItem(categoryId, saveBook.getId());
         return saveBook.getId();
     }
 
