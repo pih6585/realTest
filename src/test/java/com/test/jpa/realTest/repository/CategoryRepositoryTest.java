@@ -44,7 +44,7 @@ class CategoryRepositoryTest {
         Category category1 = getCategory("양식");
         Category saveCategory = categoryRepository.save(category1);
 
-        Category category2 = Category.createParent("스테이크",category1);
+        Category category2 = Category.categoryCreate("스테이크",category1);
         categoryRepository.save(category2);
 
         em.flush();
@@ -63,7 +63,7 @@ class CategoryRepositoryTest {
         Category category1 =  getCategory("양식");
         Category saveCategory1 = categoryRepository.save(category1);
 
-        Category category2 = Category.createParent("스테이크",saveCategory1);
+        Category category2 = Category.categoryCreate("스테이크",saveCategory1);
         categoryRepository.save(category2);
 
         Category category1_1 = getCategory("한식");
@@ -85,7 +85,7 @@ class CategoryRepositoryTest {
         Category category1 =  getCategory("양식");
         Category saveCategory1 = categoryRepository.save(category1);
 
-        Category category2 = Category.createParent("스테이크",saveCategory1);
+        Category category2 = Category.categoryCreate("스테이크",saveCategory1);
         categoryRepository.save(category2);
 
         Category category1_1 = getCategory("한식");
@@ -134,7 +134,7 @@ class CategoryRepositoryTest {
     };
 
     private Category getCategory( String name ) {
-        return Category.createChild(name);
+        return Category.categoryCreate(name,null);
     }
 
 

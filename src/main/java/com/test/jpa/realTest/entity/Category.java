@@ -41,13 +41,8 @@ public class Category {
         this.name = name;
         this.child.add(this);
     }
-
-    public static Category createChild(String name){
-       Category category = new Category( name);
-        return category;
-    }
-
-    public static Category createParent(String name, Category parent){
+    
+    public static Category categoryCreate(String name, Category parent){
         Category category = new Category( name, parent);
         return category;
     }
