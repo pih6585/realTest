@@ -5,6 +5,7 @@ import com.test.jpa.realTest.entity.Category;
 import lombok.Data;
 import lombok.Getter;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class CategoryDto {
 
     private Long id;
 
+    @NotEmpty
     private String name;
 
     private String lv;
@@ -23,6 +25,10 @@ public class CategoryDto {
     private String parent_name;
 
     private List<CategoryDto> child = new ArrayList<>();
+
+    public CategoryDto() {
+
+    }
 
     public CategoryDto(String name, Long parent_id){
         this.name = name;
@@ -59,5 +65,4 @@ public class CategoryDto {
         this.parent_id = parent_id;
         this.parent_name = parent_name;
     }
-
 }

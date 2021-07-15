@@ -33,10 +33,10 @@ class CategoryServiceTest {
     public void 카테고리_저장(){
         CategoryDto categoryDto1 = new CategoryDto("양식",null);
         CategoryDto categoryDto2 = new CategoryDto("한식",null);
-        Long findDto1Id = categoryService.category_create(categoryDto1);
-        categoryService.category_create(categoryDto2);
+        Long findDto1Id = categoryService.category_create(categoryDto1,0L);
+        categoryService.category_create(categoryDto2,0L);
         CategoryDto categoryDto3 = new CategoryDto("스테이크",findDto1Id);
-        Long findDto3Id = categoryService.category_create(categoryDto3);
+        Long findDto3Id = categoryService.category_create(categoryDto3,findDto1Id);
 
         em.flush();
         em.clear();
@@ -56,10 +56,10 @@ class CategoryServiceTest {
     public void 부모_리스트_조회(){
         CategoryDto categoryDto1 = new CategoryDto("양식",null);
         CategoryDto categoryDto2 = new CategoryDto("한식",null);
-        Long findDto1Id = categoryService.category_create(categoryDto1);
-        categoryService.category_create(categoryDto2);
+        Long findDto1Id = categoryService.category_create(categoryDto1,0L);
+        categoryService.category_create(categoryDto2,0L);
         CategoryDto categoryDto3 = new CategoryDto("스테이크",findDto1Id);
-       categoryService.category_create(categoryDto3);
+        categoryService.category_create(categoryDto3,findDto1Id);
 
         em.flush();
         em.clear();
@@ -74,10 +74,10 @@ class CategoryServiceTest {
     public void 전체_리스트_조회(){
         CategoryDto categoryDto1 = new CategoryDto("양식",null);
         CategoryDto categoryDto2 = new CategoryDto("한식",null);
-        Long findDto1Id = categoryService.category_create(categoryDto1);
-        categoryService.category_create(categoryDto2);
+        Long findDto1Id = categoryService.category_create(categoryDto1,0L);
+        categoryService.category_create(categoryDto2,0L);
         CategoryDto categoryDto3 = new CategoryDto("스테이크",findDto1Id);
-        categoryService.category_create(categoryDto3);
+        categoryService.category_create(categoryDto3,findDto1Id);
 
         em.flush();
         em.clear();

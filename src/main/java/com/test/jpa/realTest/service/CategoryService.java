@@ -17,17 +17,17 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     @Transactional
-    public Long category_create(CategoryDto categoryDto){
-        Category parentCategory = getParentById(categoryDto);
+    public Long category_create(CategoryDto categoryDto,Long parentId){
+        Category parentCategory = getParentById(parentId);
         Category category = Category.categoryCreate(categoryDto.getName(),parentCategory);
         Category saveCategory = categoryRepository.save(category);
         return saveCategory.getId();
     }
 
-    private Category getParentById(CategoryDto categoryDto) {
+    private Category getParentById(Long parentId) {
         Category parentCategory = null;
-        if(categoryDto.getParent_id() != null){
-            Optional<Category> optCategory = categoryRepository.findById(categoryDto.getParent_id());
+        if(parentId != null && parentId > 0L){
+            Optional<Category> optCategory = categoryRepository.findById(parentId);
             parentCategory = Optional.ofNullable(optCategory.get()).get();
         }
         return parentCategory;
