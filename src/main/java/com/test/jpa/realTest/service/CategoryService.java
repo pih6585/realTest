@@ -46,7 +46,7 @@ public class CategoryService {
         return resultList;
     }
 
-    private List<CategoryDto> getChildList(){
+    public List<CategoryDto> getChildList(){
         List<CategoryDto> childList = categoryRepository.findByParentExistList();
         return childList;
     }
