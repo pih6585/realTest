@@ -28,19 +28,28 @@ public class Category {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
-    public Category createChild(Long id, String name){
-        this.id = id;
+    private Category(String name, Category parent){
         this.name = name;
+        if(parent != null){
+            this.parent = parent;
+            this.parent.getChild().add(this);
+        }
         this.child.add(this);
-        return this;
     }
 
-    public Category createParent(Long id, Category parent, String name){
-        this.id = id;
+    private Category(String name){
         this.name = name;
-        this.parent = parent;
         this.child.add(this);
-        return this;
+    }
+
+    public static Category createChild(String name){
+       Category category = new Category( name);
+        return category;
+    }
+
+    public static Category createParent(String name, Category parent){
+        Category category = new Category( name, parent);
+        return category;
     }
 
     public boolean existCategoryId(String name){
