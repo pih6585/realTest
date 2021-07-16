@@ -19,11 +19,22 @@ public class MovieService {
     @Autowired
     MovieRepository movieRepository;
 
+    @Autowired
+    CategoryItemService categoryItemService;
+
     //영화저장
     @Transactional
     public Long movieCreate(MovieDto movieDto){
         Movie movie = Movie.movieCreate(movieDto.getDirector(),movieDto.getActor(), movieDto.getName(), movieDto.getPrice(), movieDto.getStockQuantity());
         Movie saveMovie = movieRepository.save(movie);
+        return saveMovie.getId();
+    }
+
+    @Transactional
+    public Long movieCreateWithCategory(MovieDto movieDto,Long categoryId){
+        Movie movie = Movie.movieCreate(movieDto.getDirector(),movieDto.getActor(), movieDto.getName(), movieDto.getPrice(), movieDto.getStockQuantity());
+        Movie saveMovie = movieRepository.save(movie);
+        categoryItemService.createCategoryItem(categoryId, saveMovie.getId());
         return saveMovie.getId();
     }
 

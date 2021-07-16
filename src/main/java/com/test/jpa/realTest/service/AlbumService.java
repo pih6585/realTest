@@ -19,11 +19,22 @@ public class AlbumService {
     @Autowired
     AlbumRepository albumRepository;
 
+    @Autowired
+    CategoryItemService categoryItemService;
+
     //음악앨범_저장
     @Transactional
     public Long albumCreate(AlbumDto albumDto) {
         Album album = Album.albumCreate(albumDto.getArtist(), albumDto.getEtc(), albumDto.getName(), albumDto.getPrice(), albumDto.getStockQuantity());
         Album saveAlbum = albumRepository.save(album);
+        return saveAlbum.getId();
+    }
+
+    @Transactional
+    public Long albumCreateWithCategory(AlbumDto albumDto,Long categoryId){
+        Album album = Album.albumCreate(albumDto.getArtist(), albumDto.getEtc(), albumDto.getName(), albumDto.getPrice(), albumDto.getStockQuantity());
+        Album saveAlbum = albumRepository.save(album);
+        categoryItemService.createCategoryItem(categoryId, saveAlbum.getId());
         return saveAlbum.getId();
     }
 
